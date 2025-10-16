@@ -1,0 +1,104 @@
+import { useState } from "react";
+import useFetch from "../useFetch";
+import { Link } from "react-router-dom";
+
+
+const Events = () => {
+  const { data, loading, error } = useFetch("http://localhost:3000/meetups");
+
+  // State for filters
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterType, setFilterType] = useState("Both");
+
+  if (loading) return <p className="text-center mt-4">Loading...</p>;
+  if (error) return <p className="text-center text-danger">Error: {error}</p>;
+
+  // Apply filters and search
+  const filteredEvents = data?.filter((event) => {
+    // Type filter
+    const typeMatch =
+      filterType === "Both" || event.eventType === filterType;
+
+    // Search filter (by title or tags)
+    const query = searchQuery.toLowerCase();
+    const searchMatch =
+      event.title.toLowerCase().includes(query) ||
+      event.tags?.some((tag) => tag.toLowerCase().includes(query));
+
+    return typeMatch && searchMatch;
+  });
+
+  return (
+    <div className="container my-4">
+      <h2 className="text-center mb-4 fw-bold">Meetup Events</h2>
+
+      {/* Search and Filter Controls */}
+      <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 gap-3">
+        <div className="input-group w-100 w-md-50">
+          <input
+            type="text"
+            className="form-control rounded-4"
+            placeholder="Search by title or tags..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <select
+            className="form-select rounded-4"
+            value={filterType}
+            onChange={(e) => setFilterType(e.target.value)}
+          >
+            <option value="Both">Both (Online & Offline)</option>
+            <option value="Online">Online</option>
+            <option value="Offline">Offline</option>
+          </select>
+        </div>
+      </div>
+
+      {/* Event Cards */}
+   <div className="row g-4">
+  {filteredEvents?.length > 0 ? (
+    filteredEvents.map((event) => (
+      <div key={event._id || event.title} className="col-md-4 col-sm-6 col-12">
+        <Link
+          to={`/event/${encodeURIComponent(event.title)}`}
+          className="text-decoration-none text-dark"
+        >
+          <div className="card shadow-sm h-100 border-0 rounded-4">
+            <img
+              src={event.thumbnail}
+              className="card-img-top rounded-top-4 img-fluid"
+              alt={event.title}
+              onError={(e) =>
+                (e.target.src =
+                  "https://placehold.co/200x200?text=No+Image&font=roboto")
+              }
+            />
+            <div className="card-body">
+              <span
+                className={`badge ${
+                  event.eventType === "Online" ? "bg-primary" : "bg-success"
+                } mb-2`}
+              >
+                {event.eventType} Event
+              </span>
+              <h5 className="card-title fw-semibold">{event.title}</h5>
+              <p className="text-muted small mb-0">
+                {new Date(event.dateTime).toDateString()}
+              </p>
+            </div>
+          </div>
+        </Link>
+      </div>
+    ))
+  ) : (
+    <p className="text-center text-muted mt-4">No events found.</p>
+  )}
+</div>
+    </div>
+  );
+};
+
+export default Events;
