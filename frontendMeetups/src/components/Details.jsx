@@ -3,9 +3,7 @@ import useFetch from "../useFetch";
 
 const Details = () => {
   const { title } = useParams();
-  const { data, loading, error } = useFetch(
-    `http://localhost:3000/meetups/${title}`
-  );
+  const { data, loading, error } = useFetch(`https://backend-meetup-mon7.vercel.app/meetups/${title}`);
 
   if (loading) return <p className="text-center mt-4">Loading...</p>;
   if (error) return <p className="text-center text-danger">Error: {error}</p>;
