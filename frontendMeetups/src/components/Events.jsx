@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 
 const Events = () => {
-  const { data, loading, error } = useFetch("http://localhost:3000/meetups");
+const { data, loading, error } = useFetch(`https://backend-meetup-mon7.vercel.app/meetups`);
 
   // State for filters
   const [searchQuery, setSearchQuery] = useState("");
