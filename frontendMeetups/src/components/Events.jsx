@@ -59,13 +59,15 @@ const { data, loading, error } = useFetch(`https://backend-meetup-mon7.vercel.ap
 
   {/* Event Cards */}
   <div
-    className="event-grid"
+    className="row row-cols-1 row-cols-md-3 g-4"
+    
     style={{
       display: "grid",
       gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
       gap: "1.5rem",
     }}
   >
+    <div class="col">
     {filteredEvents?.length > 0 ? (
       filteredEvents.map((event) => (
         <Link
@@ -102,6 +104,7 @@ const { data, loading, error } = useFetch(`https://backend-meetup-mon7.vercel.ap
     ) : (
       <p className="text-center text-muted mt-4">No events found.</p>
     )}
+    </div>
   </div>
 </div>
 
