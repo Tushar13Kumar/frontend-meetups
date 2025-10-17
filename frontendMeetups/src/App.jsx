@@ -7,10 +7,12 @@ export default function App() {
   return (
     <Router>
       <main>
-        <Routes>
-          <Route path="/" element={<Events />} />
-          <Route path="/event/:title" element={<Details />} />
-        </Routes>
+       <Routes>
+  <Route path="/" element={<Events />} />
+  <Route path="/meetups" element={<Events />} />  {/* 👈 Add this */}
+  <Route path="/event/:title" element={<Details />} />
+</Routes>
+
       </main>
     </Router>
   );

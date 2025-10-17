@@ -58,15 +58,18 @@ const { data, loading, error } = useFetch(`https://backend-meetup-mon7.vercel.ap
       </div>
 
       {/* Event Cards */}
-   <div className="row g-4">
+  <div className="row g-4 justify-content-center">
   {filteredEvents?.length > 0 ? (
     filteredEvents.map((event) => (
-      <div key={event._id || event.title} className="col-md-4 col-sm-6 col-12">
+      <div
+        key={event._id || event.title}
+        className="col-12 col-sm-6 col-md-4 d-flex"
+      >
         <Link
           to={`/event/${encodeURIComponent(event.title)}`}
-          className="text-decoration-none text-dark"
+          className="text-decoration-none text-dark flex-grow-1"
         >
-          <div className="card shadow-sm h-100 border-0 rounded-4">
+          <div className="card shadow-sm h-100 border-0 rounded-4 w-100">
             <img
               src={event.thumbnail}
               className="card-img-top rounded-top-4 img-fluid"
@@ -97,6 +100,7 @@ const { data, loading, error } = useFetch(`https://backend-meetup-mon7.vercel.ap
     <p className="text-center text-muted mt-4">No events found.</p>
   )}
 </div>
+
     </div>
   );
 };
