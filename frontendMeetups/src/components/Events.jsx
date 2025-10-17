@@ -61,11 +61,7 @@ const { data, loading, error } = useFetch(`https://backend-meetup-mon7.vercel.ap
   <div
     className="row row-cols-1 row-cols-md-3 g-4"
     
-    style={{
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-      gap: "1.5rem",
-    }}
+   
   >
     <div class="col">
     {filteredEvents?.length > 0 ? (
