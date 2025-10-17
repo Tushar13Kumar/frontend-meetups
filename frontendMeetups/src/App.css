@@ -1,216 +1,94 @@
-/* ---- Global helpers (safe) ---- */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Make app wide but avoid stomping on Bootstrap globally.
-   Apply only to root elements — no trailing comma. */
+/* Make app truly full-width */
 html, body, #root {
-  width: 100%;
-  max-width: none;
-  margin: 0;
-  padding: 0;
-}
-
-/* Be cautious with overflow-x: hidden globally; body only if needed */
-body {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box;
   overflow-x: hidden;
 }
 
-/* Page-level full-width helpers — use these on pages that need it */
+/* make <main> and top-level wrappers full width too (in case you used them) */
 main, .app-wrapper, .page-wrapper {
-  width: 100%;
-  max-width: none;
+  width: 100% !important;
+  max-width: none !important;
   padding-left: 1rem;
   padding-right: 1rem;
 }
 
-/* Prefer a page-specific container to avoid overriding Bootstrap's .container */
-.container-center {
-  max-width: 980px;
-  width: 100%;
-  margin: 0 auto;
-  padding-left: 18px;
-  padding-right: 18px;
+/* If you used a .container and want full width on Details page,
+   prefer container-fluid (Bootstrap) or override .container here */
+.container {
+  max-width: 100% !important;
+  width: 100% !important;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
-/* ---- UI utilities ---- */
+
+
+
 .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
 }
-.logo:hover { filter: drop-shadow(0 0 2em #646cffaa); }
-.logo.react:hover { filter: drop-shadow(0 0 2em #61dafbaa); }
-
-/* Keep one .card rule */
-.card {
-  padding: 2em;
-  background-color: #fff;
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-/* ---- Event grid helpers ---- */
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
 .event-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   justify-items: center;
 }
+
 @media (max-width: 992px) {
-  .event-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 576px) {
-  .event-grid { grid-template-columns: 1fr; }
+  .event-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-/* ---- Speakers hover ---- */
+@media (max-width: 576px) {
+  .event-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.card {
+  background-color: #fff;
+}
+
 .speakers-grid img {
   transition: transform 0.3s ease;
 }
-.speakers-grid img:hover { transform: scale(1.05); }
 
-/* ---- Details page (your page-specific styles) ---- */
-.page-wrap {
-  padding: 24px 0;
-  background: #ffffff;
-}
-
-.back-btn {
-  display: inline-block;
-  margin-bottom: 18px;
-  color: #495057;
-  text-decoration: none;
-  border: 1px solid #dde2e6;
-  padding: 8px 12px;
-  border-radius: 8px;
-  background: #fff;
-}
-
-/* Two-column layout: left details and right sidebar */
-.event-layout {
-  display: grid;
-  grid-template-columns: 1.6fr 1fr; /* left wider, right narrower */
-  gap: 24px;
-  align-items: start;
-}
-
-/* Image and left column */
-.image-wrap {
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
-}
-.event-image {
-  width: 100%;
-  height: 320px;
-  object-fit: cover;
-  display: block;
-}
-
-/* Title and meta */
-.event-title {
-  font-size: 28px;
-  margin: 16px 0 8px 0;
-  color: #111827;
-}
-.meta-row {
-  color: #6b7280;
-  font-size: 14px;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 6px 16px;
-  margin-bottom: 10px;
-}
-
-/* Tags */
-.tags-row { margin: 8px 0 12px 0; }
-.tag-pill {
-  display: inline-block;
-  background: #f8d7da;
-  color: #842029;
-  padding: 6px 10px;
-  border-radius: 16px;
-  font-size: 13px;
-  margin-right: 8px;
-}
-
-/* Details text */
-.details-text {
-  color: #4b5563;
-  line-height: 1.6;
-  font-size: 15px;
-}
-
-/* Info grid */
-.info-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px 16px;
-  color: #374151;
-  font-size: 14px;
-  margin-top: 8px;
-}
-
-/* Sidebar */
-.right-col { position: relative; }
-.sidebar-card {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 16px;
-  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
-  border: 1px solid #eef2f6;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  position: sticky;
-  top: 20px;
-}
-.sidebar-top { display: grid; gap: 10px; }
-.dt-label { font-size: 12px; color: #6b7280; }
-.dt-value {
-  font-weight: 600;
-  color: #111827;
-  font-size: 14px;
-  margin-top: 4px;
-}
-
-/* Mini speaker cards */
-.speakers-list { display: flex; flex-direction: column; gap: 10px; }
-.speaker-mini {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  background: #fff;
-  padding: 8px;
-  border-radius: 10px;
-  border: 1px solid #f1f3f5;
-}
-.speaker-avatar { width: 56px; height: 56px; object-fit: cover; border-radius: 50%; }
-
-/* RSVP */
-.rsvp-btn {
-  margin-top: 12px;
-  background: #ff6b6b;
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  align-self: center;
-  width: 100%;
-  max-width: 240px;
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-  .event-layout { grid-template-columns: 1fr; }
-  .event-image { height: 220px; }
-  .meta-row { grid-template-columns: 1fr; }
-  .sidebar-card { position: static; }
+.speakers-grid img:hover {
+  transform: scale(1.05);
 }
