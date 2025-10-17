@@ -58,48 +58,54 @@ const { data, loading, error } = useFetch(`https://backend-meetup-mon7.vercel.ap
       </div>
 
       {/* Event Cards */}
-  <div className="row g-4 justify-content-center">
+  <div
+  className="event-grid"
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)",
+    gap: "1.5rem",
+    justifyItems: "center",
+  }}
+>
   {filteredEvents?.length > 0 ? (
     filteredEvents.map((event) => (
-      <div
+      <Link
         key={event._id || event.title}
-        className="col-12 col-sm-6 col-md-4 d-flex"
+        to={`/event/${encodeURIComponent(event.title)}`}
+        className="text-decoration-none text-dark"
+        style={{ width: "100%", maxWidth: "350px" }}
       >
-        <Link
-          to={`/event/${encodeURIComponent(event.title)}`}
-          className="text-decoration-none text-dark flex-grow-1"
-        >
-          <div className="card shadow-sm h-100 border-0 rounded-4 w-100">
-            <img
-              src={event.thumbnail}
-              className="card-img-top rounded-top-4 img-fluid"
-              alt={event.title}
-              onError={(e) =>
-                (e.target.src =
-                  "https://placehold.co/200x200?text=No+Image&font=roboto")
-              }
-            />
-            <div className="card-body">
-              <span
-                className={`badge ${
-                  event.eventType === "Online" ? "bg-primary" : "bg-success"
-                } mb-2`}
-              >
-                {event.eventType} Event
-              </span>
-              <h5 className="card-title fw-semibold">{event.title}</h5>
-              <p className="text-muted small mb-0">
-                {new Date(event.dateTime).toDateString()}
-              </p>
-            </div>
+        <div className="card shadow-sm h-100 border-0 rounded-4">
+          <img
+            src={event.thumbnail}
+            className="card-img-top rounded-top-4 img-fluid"
+            alt={event.title}
+            onError={(e) =>
+              (e.target.src =
+                "https://placehold.co/200x200?text=No+Image&font=roboto")
+            }
+          />
+          <div className="card-body">
+            <span
+              className={`badge ${
+                event.eventType === "Online" ? "bg-primary" : "bg-success"
+              } mb-2`}
+            >
+              {event.eventType} Event
+            </span>
+            <h5 className="card-title fw-semibold">{event.title}</h5>
+            <p className="text-muted small mb-0">
+              {new Date(event.dateTime).toDateString()}
+            </p>
           </div>
-        </Link>
-      </div>
+        </div>
+      </Link>
     ))
   ) : (
     <p className="text-center text-muted mt-4">No events found.</p>
   )}
 </div>
+
 
     </div>
   );
