@@ -1,11 +1,53 @@
-
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* ---------- GLOBAL RESET ---------- */
+html, body, #root, main {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: #ffffff;
 }
 
+/* ---------- LAYOUT ---------- */
+#root {
+  text-align: left;
+}
+
+.container, .page-wrap {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.container-center {
+  width: 100%;
+  max-width: 1400px; /* Optional: controls max width for very large screens */
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* ---------- EVENT GRID ---------- */
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  justify-items: center;
+  width: 100%;
+}
+
+@media (max-width: 992px) {
+  .event-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .event-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- LOGO ANIMATION ---------- */
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -20,12 +62,8 @@
 }
 
 @keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -34,39 +72,19 @@
   }
 }
 
+/* ---------- CARD + SPEAKERS ---------- */
 .card {
+  background-color: #fff;
   padding: 2em;
 }
 
 .read-the-docs {
   color: #888;
 }
-.event-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  justify-items: center;
-}
-
-@media (max-width: 992px) {
-  .event-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 576px) {
-  .event-grid {
-    grid-template-columns: 1fr;
-  }
-}
-.card {
-  background-color: #fff;
-}
 
 .speakers-grid img {
   transition: transform 0.3s ease;
 }
-
 .speakers-grid img:hover {
   transform: scale(1.05);
 }

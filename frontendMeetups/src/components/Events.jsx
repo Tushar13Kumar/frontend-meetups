@@ -44,17 +44,19 @@ const { data, loading, error } = useFetch(`https://backend-meetup-mon7.vercel.ap
           />
         </div>
 
-        <div>
-          <select
-            className="form-select rounded-4"
-            value={filterType}
-            onChange={(e) => setFilterType(e.target.value)}
-          >
-            <option value="Both">Both (Online & Offline)</option>
-            <option value="Online">Online</option>
-            <option value="Offline">Offline</option>
-          </select>
-        </div>
+      <div>
+  <select
+    className="form-select rounded-4"
+    style={{ minWidth: "140px" }}
+    value={filterType}
+    onChange={(e) => setFilterType(e.target.value)}
+  >
+    <option value="Both">Both</option>
+    <option value="Online">Online</option>
+    <option value="Offline">Offline</option>
+  </select>
+</div>
+
       </div>
 
       {/* Event Cards */}
