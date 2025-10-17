@@ -58,3 +58,14 @@
     grid-template-columns: 1fr;
   }
 }
+.card {
+  background-color: #fff;
+}
+
+.speakers-grid img {
+  transition: transform 0.3s ease;
+}
+
+.speakers-grid img:hover {
+  transform: scale(1.05);
+}
