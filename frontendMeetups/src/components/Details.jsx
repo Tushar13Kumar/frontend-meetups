@@ -16,19 +16,12 @@ const Details = () => {
   return (
     <div className="page-wrap">
       <div className="container-center">
-        <Link to="/" className="back-btn">
-          ← Back to Events
-        </Link>
+        <Link to="/" className="back-btn">← Back to Events</Link>
 
         <div className="event-layout">
-          {/* LEFT: Image + Main Details */}
           <div className="left-col">
             <div className="image-wrap">
-              <img
-                src={data.image}
-                alt={data.title}
-                className="event-image"
-              />
+              <img src={data.image} alt={data.title} className="event-image" />
             </div>
 
             <h1 className="event-title">{data.title}</h1>
@@ -36,10 +29,7 @@ const Details = () => {
             <div className="meta-row">
               <div><strong>Host:</strong> {data.host}</div>
               <div><strong>Location:</strong> {data.location}</div>
-              <div>
-                <strong>Date & Time:</strong>{" "}
-                {new Date(data.duration).toLocaleString()}
-              </div>
+              <div><strong>Date & Time:</strong> {new Date(data.duration).toLocaleString()}</div>
               <div><strong>Dress Code:</strong> {data.dressCode}</div>
               <div><strong>Age Restrictions:</strong> {data.ageRestrictions}</div>
               <div><strong>Price:</strong> {data.price}</div>
@@ -52,12 +42,10 @@ const Details = () => {
             </div>
 
             <hr />
-
             <h3>Details:</h3>
             <p className="details-text">{data.details}</p>
 
-            {/* Optional Additional Information section like reference screenshot */}
-            { (data.dressCode || data.ageRestrictions) && (
+            {(data.dressCode || data.ageRestrictions) && (
               <>
                 <h4 className="mt-3">Additional Information:</h4>
                 <div className="info-grid">
@@ -68,7 +56,6 @@ const Details = () => {
             )}
           </div>
 
-          {/* RIGHT: Sidebar card - date/time, location, price, speakers, RSVP */}
           <aside className="right-col">
             <div className="sidebar-card">
               <div className="sidebar-top">
@@ -89,7 +76,9 @@ const Details = () => {
               <hr />
 
               <div className="speakers-section">
-                <div className="speakers-title">Speakers: ({data.speakers?.length || 0})</div>
+                <div className="speakers-title">
+                  Speakers: ({data.speakers?.length || 0})
+                </div>
                 <div className="speakers-list">
                   {data.speakers?.map((s, i) => (
                     <div key={i} className="speaker-mini">
