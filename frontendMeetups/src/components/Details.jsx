@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
 import useFetch from "../useFetch";
-//import "./Details.css";
+import "./Details.css";
 
 const Details = () => {
   const { title } = useParams();
