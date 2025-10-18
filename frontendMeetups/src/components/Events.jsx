@@ -55,56 +55,55 @@ const Events = () => {
       </div>
 
       {/* Event Cards Section */}
-     {/* Event Cards Section */}
-{/* Event Cards Section */}
-<div
-  className="event-grid"
-  style={{
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-    gap: "2rem",
-    justifyItems: "center",
-  }}
->
-  {filteredEvents?.length > 0 ? (
-    filteredEvents.map((event) => (
-      <Link
-        key={event._id || event.title}
-        to={`/event/${encodeURIComponent(event.title)}`}
-        className="text-decoration-none text-dark w-100"
-        style={{ maxWidth: "350px" }}
+      <div
+        className="event-grid"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+          gap: "2rem",
+          justifyItems: "center",
+        }}
       >
-        <div className="card shadow-sm h-100 border-0 rounded-4">
-          <img
-            src={event.thumbnail}
-            className="card-img-top rounded-top-4 img-fluid"
-            alt={event.title}
-            onError={(e) =>
-              (e.target.src =
-                "https://placehold.co/200x200?text=No+Image&font=roboto")
-            }
-          />
-          <div className="card-body">
-            <span
-              className={`badge ${
-                event.eventType === "Online" ? "bg-primary" : "bg-success"
-              } mb-2`}
+        {filteredEvents?.length > 0 ? (
+          filteredEvents.map((event) => (
+            <Link
+              key={event._id || event.title}
+              to={`/event/${encodeURIComponent(event.title)}`}
+              className="text-decoration-none text-dark w-100"
+              style={{ maxWidth: "350px" }}
             >
-              {event.eventType} Event
-            </span>
-            <h5 className="card-title fw-semibold">{event.title}</h5>
-            <p className="text-muted small mb-0">
-              {new Date(event.dateTime).toDateString()}
-            </p>
-          </div>
-        </div>
-      </Link>
-    ))
-  ) : (
-    <p className="text-center text-muted mt-4">No events found.</p>
-  )}
-</div>
-
+              <div className="card shadow-sm h-100 border-0 rounded-4">
+                <img
+                  src={event.thumbnail}
+                  className="card-img-top rounded-top-4 img-fluid"
+                  alt={event.title}
+                  onError={(e) =>
+                    (e.target.src =
+                      "https://placehold.co/200x200?text=No+Image&font=roboto")
+                  }
+                />
+                <div className="card-body">
+                  <span
+                    className={`badge ${
+                      event.eventType === "Online"
+                        ? "bg-primary"
+                        : "bg-success"
+                    } mb-2`}
+                  >
+                    {event.eventType} Event
+                  </span>
+                  <h5 className="card-title fw-semibold">{event.title}</h5>
+                  <p className="text-muted small mb-0">
+                    {new Date(event.dateTime).toDateString()}
+                  </p>
+                </div>
+              </div>
+            </Link>
+          ))
+        ) : (
+          <p className="text-center text-muted mt-4">No events found.</p>
+        )}
+      </div>
     </div>
   );
 };
