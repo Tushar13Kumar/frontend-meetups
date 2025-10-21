@@ -7,85 +7,93 @@ const Events = () => {
     `https://backend-meetup-mon7.vercel.app/meetups`
   );
 
+  // State for filters
   const [searchQuery, setSearchQuery] = useState("");
+  const [filterType, setFilterType] = useState("Both");
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error loading events.</p>;
+  if (loading) return <p className="text-center mt-4">Loading...</p>;
+  if (error) return <p className="text-center text-danger">Error: {error}</p>;
 
-  // ✅ Keep same layout, only hide unmatched cards (not shrink grid)
-  const filteredData = data.filter((event) =>
-    event.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Apply filters and search
+  const filteredEvents = data?.filter((event) => {
+    const typeMatch = filterType === "Both" || event.eventType === filterType;
+    const query = searchQuery.toLowerCase();
+    const searchMatch =
+      event.title.toLowerCase().includes(query) ||
+      event.tags?.some((tag) => tag.toLowerCase().includes(query));
+    return typeMatch && searchMatch;
+  });
 
   return (
-    <div className="events-container" style={{ padding: "20px" }}>
-      {/* ✅ Search input */}
-      <div style={{ textAlign: "center", marginBottom: "20px" }}>
-        <input
-          type="text"
-          placeholder="Search meetups..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          style={{
-            padding: "10px 15px",
-            width: "300px",
-            borderRadius: "10px",
-            border: "1px solid #ccc",
-          }}
-        />
+    <div className="container-fluid my-4 px-4">
+      <h2 className="text-center mb-4 fw-bold">Meetup Events</h2>
+
+      {/* Search & Filter Row */}
+      <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 gap-3">
+        <div className="input-group w-100 w-md-50">
+          <input
+            type="text"
+            className="form-control rounded-4"
+            placeholder="Search by title or tags..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <select
+            className="form-select rounded-4"
+            style={{ minWidth: "140px" }}
+            value={filterType}
+            onChange={(e) => setFilterType(e.target.value)}
+          >
+            <option value="Both">Both</option>
+            <option value="Online">Online</option>
+            <option value="Offline">Offline</option>
+          </select>
+        </div>
       </div>
 
-      {/* ✅ Keep your old 3-column grid */}
-      <div
-        className="events-grid"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: "20px",
-        }}
-      >
-        {filteredData.length > 0 ? (
-          filteredData.map((event) => (
-            <div
-              key={event._id}
-              className="event-card"
-              style={{
-                background: "#fff",
-                borderRadius: "10px",
-                boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-                overflow: "hidden",
-                textAlign: "center",
-              }}
-            >
-              <img
-                src={event.image}
-                alt={event.title}
-                style={{ width: "100%", height: "200px", objectFit: "cover" }}
-              />
-              <div style={{ padding: "15px" }}>
-                <h3>{event.title}</h3>
-                <p>{event.host}</p>
-                <Link
-                  to={`/details/${encodeURIComponent(event.title)}`}
-                  style={{
-                    display: "inline-block",
-                    marginTop: "10px",
-                    padding: "8px 16px",
-                    background: "#007BFF",
-                    color: "#fff",
-                    borderRadius: "6px",
-                    textDecoration: "none",
-                  }}
-                >
-                  View Details
-                </Link>
-              </div>
+      {/* Event Cards Section */}
+      <div className="row row-cols-1 row-cols-md-3 g-4">
+        {filteredEvents?.length > 0 ? (
+          filteredEvents.map((event) => (
+            <div className="col" key={event._id || event.title}>
+              <Link
+                to={`/event/${encodeURIComponent(event.title)}`}
+                className="text-decoration-none text-dark"
+              >
+                <div className="card shadow-sm h-100 border-0 rounded-4">
+                  <img
+                    src={event.thumbnail}
+                    className="card-img-top rounded-top-4 img-fluid"
+                    alt={event.title}
+                    onError={(e) =>
+                      (e.target.src =
+                        "https://placehold.co/200x200?text=No+Image&font=roboto")
+                    }
+                  />
+                  <div className="card-body">
+                    <span
+                      className={`badge ${
+                        event.eventType === "Online"
+                          ? "bg-primary"
+                          : "bg-success"
+                      } mb-2`}
+                    >
+                      {event.eventType} Event
+                    </span>
+                    <h5 className="card-title fw-semibold">{event.title}</h5>
+                    <p className="text-muted small mb-0">
+                      {new Date(event.dateTime).toDateString()}
+                    </p>
+                  </div>
+                </div>
+              </Link>
             </div>
           ))
         ) : (
-          <p style={{ gridColumn: "1 / -1", textAlign: "center" }}>
-            No meetups found.
-          </p>
+          <p className="text-center text-muted mt-4">No events found.</p>
         )}
       </div>
     </div>
