@@ -55,11 +55,10 @@ const Events = () => {
       </div>
 
       {/* Event Cards Section */}
-     <div className="event-grid">
-  {filteredEvents?.length > 0 ? (
-    filteredEvents.map((event) => (
-      <div key={event._id || event.title} style={{ width: "100%" }}>
-
+      <div className="row row-cols-1 row-cols-md-3 g-4">
+        {filteredEvents?.length > 0 ? (
+          filteredEvents.map((event) => (
+            <div className="col" key={event._id || event.title}>
               <Link
                 to={`/event/${encodeURIComponent(event.title)}`}
                 className="text-decoration-none text-dark"
