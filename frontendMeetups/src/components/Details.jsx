@@ -75,6 +75,7 @@ const Details = () => {
               <p className="text-muted mb-1">
                 <strong>Date & Time:</strong> {data.duration}
               </p>
+              <p className="text-muted mb-1"> <strong>Event Duration</strong>  {data.eventTime}</p>
               <p className="text-muted mb-1">
                 <strong>Dress Code:</strong> {data.dressCode}
               </p>
