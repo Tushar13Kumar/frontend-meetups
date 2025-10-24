@@ -12,99 +12,92 @@ const Details = () => {
   if (!data) return <p className="text-center mt-4">Event not found.</p>;
 
   return (
-    <div className="container-fluid px-4 py-4">
-      <Link to="/" className="btn btn-outline-secondary mb-4">
-        ← Back to Events
-      </Link>
+    <div className="container-fluid py-5" style={{ backgroundColor: "#f5f6fa" }}>
+      <div className="container">
+        <Link to="/" className="btn btn-outline-secondary mb-4">
+          ← Back to Events
+        </Link>
 
-      <div
-        className="card border-0 shadow-lg rounded-4 p-4"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr",
-          gap: "2rem",
-        }}
-      >
-        {/* Responsive grid for desktop */}
-        <style>
-          {`
-            @media (min-width: 768px) {
-              .details-grid {
-                grid-template-columns: 60% 40%;
-                align-items: start;
-              }
-            }
-          `}
-        </style>
-
-        <div className="details-grid">
-          {/* Left Section - Image and Event Details */}
-          <div>
-            <img
-              src={data.image}
-              alt={data.title}
-              className="img-fluid rounded-4 mb-4"
-              style={{ width: "100%", height: "350px", objectFit: "cover" }}
-            />
-
-            <h2 className="fw-bold mb-3">{data.title}</h2>
-            <p className="text-muted mb-1"><strong>Host:</strong> {data.host}</p>
-            <p className="text-muted mb-1"><strong>Location:</strong> {data.location}</p>
-            <p className="text-muted mb-1">
-              <strong>Date & Time:</strong> {data.duration}
-            </p>
-            <p className="text-muted mb-1"><strong>Dress Code:</strong> {data.dressCode}</p>
-            <p className="text-muted mb-1"><strong>Age Restrictions:</strong> {data.ageRestrictions}</p>
-            <p className="text-muted mb-1"><strong>Price:</strong> {data.price}</p>
-
-            <div className="mt-3">
-              <strong>Tags:</strong>{" "}
-              {data.tags?.map((tag, index) => (
-                <span key={index} className="badge bg-secondary me-2 mb-2">
-                  {tag}
-                </span>
-              ))}
-            </div>
-
-            <hr className="my-4" />
-            <h5 className="fw-bold mb-2">About this Event</h5>
-            <p className="text-muted fs-6 lh-base">{data.details}</p>
-          </div>
-
-          {/* Right Section - Speakers */}
-          <div
-            className="p-3 rounded-4 shadow-sm mt-4 mt-md-0"
+        <div
+          className="card border-0 shadow-lg rounded-4 overflow-hidden"
+          style={{
+            backgroundColor: "#fff",
+            maxWidth: "1200px",
+            margin: "0 auto",
+          }}
+        >
+          <img
+            src={data.image}
+            alt={data.title}
+            className="img-fluid w-100"
             style={{
-              background: "#f8f9fa",
-              height: "fit-content",
+              height: "400px",
+              objectFit: "cover",
             }}
-          >
-            <h4 className="fw-bold mb-4 text-center">Speakers / Presenters</h4>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "1.5rem",
-                alignItems: "center",
-              }}
-            >
-              {data.speakers?.map((speaker, index) => (
-                <div key={index} className="text-center">
-                  <img
-                    src={speaker.image}
-                    alt={speaker.name}
-                    className="rounded-circle mb-2"
-                    style={{
-                      width: "100px",
-                      height: "100px",
-                      objectFit: "cover",
-                      border: "3px solid #dee2e6",
-                    }}
-                  />
-                  <h6 className="fw-semibold mb-1">{speaker.name}</h6>
-                  <p className="text-muted small">{speaker.position}</p>
+          />
+
+          <div className="p-4 p-md-5">
+            <div className="row g-5 align-items-start">
+              {/* Left side — details */}
+              <div className="col-12 col-lg-8">
+                <h2 className="fw-bold mb-3">{data.title}</h2>
+
+                <ul className="list-unstyled text-muted mb-4">
+                  <li><strong>Host:</strong> {data.host}</li>
+                  <li><strong>Location:</strong> {data.location}</li>
+                  <li><strong>Date & Time:</strong> {data.duration}</li>
+                  <li><strong>Dress Code:</strong> {data.dressCode}</li>
+                  <li><strong>Age Restrictions:</strong> {data.ageRestrictions}</li>
+                  <li><strong>Price:</strong> {data.price}</li>
+                </ul>
+
+                <div className="mb-3">
+                  <strong>Tags:</strong>{" "}
+                  {data.tags?.map((tag, index) => (
+                    <span
+                      key={index}
+                      className="badge bg-secondary me-2 mb-2"
+                      style={{ fontSize: "0.85rem" }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
-              ))}
+
+                <hr />
+
+                <h5 className="fw-bold mb-2">About this Event</h5>
+                <p className="text-muted lh-base">{data.details}</p>
+              </div>
+
+              {/* Right side — speakers */}
+              <div className="col-12 col-lg-4">
+                <div
+                  className="p-4 rounded-4 shadow-sm"
+                  style={{ backgroundColor: "#f9fafb" }}
+                >
+                  <h4 className="fw-bold mb-4 text-center">Speakers / Presenters</h4>
+
+                  <div className="d-flex flex-column align-items-center gap-4">
+                    {data.speakers?.map((speaker, index) => (
+                      <div key={index} className="text-center">
+                        <img
+                          src={speaker.image}
+                          alt={speaker.name}
+                          className="rounded-circle mb-2 border border-3 border-light shadow-sm"
+                          style={{
+                            width: "100px",
+                            height: "100px",
+                            objectFit: "cover",
+                          }}
+                        />
+                        <h6 className="fw-semibold mb-0">{speaker.name}</h6>
+                        <p className="text-muted small mb-0">{speaker.position}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
