@@ -1,37 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useFetch from "../useFetch";
 import { Link } from "react-router-dom";
-import detailsData from "../details.json"; // import your details JSON
 
 const Events = () => {
   const { data, loading, error } = useFetch(
     `https://backend-meetup-mon7.vercel.app/meetups`
   );
 
+  // State for filters
   const [searchQuery, setSearchQuery] = useState("");
   const [filterType, setFilterType] = useState("Both");
-  const [mergedData, setMergedData] = useState([]);
-
-  // merge API data with local details.json
-  useEffect(() => {
-    if (data && detailsData) {
-      const combined = data.map((event) => {
-        const detail = detailsData.find((d) => d.title === event.title);
-        return { ...event, tags: detail?.tags || [] };
-      });
-      setMergedData(combined);
-    }
-  }, [data]);
 
   if (loading) return <p className="text-center mt-4">Loading...</p>;
   if (error) return <p className="text-center text-danger">Error: {error}</p>;
 
-  const filteredEvents = mergedData?.filter((event) => {
+  // Apply filters and search
+  const filteredEvents = data?.filter((event) => {
     const typeMatch = filterType === "Both" || event.eventType === filterType;
     const query = searchQuery.toLowerCase();
     const searchMatch =
       event.title.toLowerCase().includes(query) ||
-      event.tags.some((tag) => tag.toLowerCase().includes(query));
+      event.tags?.some((tag) => tag.toLowerCase().includes(query));
     return typeMatch && searchMatch;
   });
 
@@ -65,11 +54,12 @@ const Events = () => {
         </div>
       </div>
 
-      {/* Event Cards */}
+      {/* Event Cards Section */}
       <div className="row row-cols-1 row-cols-md-3 g-4">
-        {filteredEvents?.length > 0 ? (
-          filteredEvents.map((event) => (
-            <div className="col" key={event._id || event.title}>
+  {filteredEvents?.length > 0 ? (
+    filteredEvents.map((event) => (
+      <div className="col" key={event._id || event.title}>
+
               <Link
                 to={`/event/${encodeURIComponent(event.title)}`}
                 className="text-decoration-none text-dark"
