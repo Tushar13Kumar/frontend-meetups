@@ -1,13 +1,14 @@
 # 🚀 Frontend Meetups
 
 ![React](https://img.shields.io/badge/Frontend-React-blue)
-![Vite](https://img.shields.io/badge/Build-Vite-purple)
-![JavaScript](https://img.shields.io/badge/Language-JavaScript-yellow)
+![Node.js](https://img.shields.io/badge/Backend-Node.js-green)
+![Express](https://img.shields.io/badge/API-Express-black)
+![MongoDB](https://img.shields.io/badge/Database-MongoDB-brightgreen)
 ![Status](https://img.shields.io/badge/Project-Active-success)
 
 ---
 
-A **modern frontend project** built using React and Vite to explore UI development and component-based design.
+A **full-stack meetup platform** to explore, view, and manage tech meetups with detailed event information.
 
 ---
 
@@ -28,23 +29,18 @@ npm run dev
 
 ---
 
-## ⚙️ Project Setup
+## ⚙️ Environment Setup
 
-### 📁 Installation
+### 📁 Backend Setup
 
-1. Clone the repository:
-
-```bash
-git clone https://github.com/Tushar13Kumar/frontend-meetups.git
-```
-
-2. Navigate to project folder:
+1. Clone backend project:
 
 ```bash
-cd frontend-meetups/frontendMeetups
+git clone https://github.com/Tushar13Kumar/backend-meetup.git
+cd backend-meetup
 ```
 
-3. Install dependencies:
+2. Install dependencies:
 
 ```bash
 npm install
@@ -52,16 +48,167 @@ npm install
 
 ---
 
-### ▶️ Run Development Server
+## 🔐 .env Configuration (IMPORTANT)
+
+Create a `.env` file in backend root:
+
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+```
+
+---
+
+3. Add dotenv in entry file:
+
+```js
+require("dotenv").config();
+```
+
+---
+
+4. Run backend:
 
 ```bash
+node index.js
+```
+
+---
+
+### 🌐 Frontend Setup
+
+```bash
+cd frontendMeetups
+npm install
 npm run dev
 ```
 
-Project will run on:
+---
+
+### 🔗 Connecting Frontend & Backend
+
+Backend runs on:
 
 ```
-http://localhost:5173
+http://localhost:5000
+```
+
+Set API URL in frontend:
+
+```js
+const BASE_URL = "http://localhost:5000";
+```
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- React JS
+- Vite
+
+### Backend
+- Node.js
+- Express.js
+
+### Database
+- MongoDB
+- Mongoose
+
+---
+
+## ✨ Features
+
+### 🏠 Homepage
+
+- Displays all meetup events
+- Shows event title, type, and thumbnail
+- Supports both online and offline events
+
+---
+
+### 📄 Event Details Page
+
+- Shows complete event information
+- Includes description, speakers, tags, and pricing
+- Displays host and event duration
+
+---
+
+### 🔄 Dynamic Data Fetching
+
+- Fetches meetups from backend API
+- Loads event details dynamically based on selection
+
+---
+
+### ✏️ Update Functionality
+
+- Allows updating meetup data via API
+- Supports updating both event listing and details
+
+---
+
+## 🔗 API Reference
+
+### 📌 Get All Meetups
+
+```
+GET /meetups
+```
+
+#### ✅ Sample Response
+
+```json
+[
+  {
+    "_id": "1",
+    "title": "AI & Machine Learning Summit 2025",
+    "eventType": "Online",
+    "thumbnail": "https://picsum.photos/id/1/300"
+  }
+]
+```
+
+---
+
+### 📌 Get Meetup Details
+
+```
+GET /meetups/:title
+```
+
+#### ✅ Sample Response
+
+```json
+{
+  "title": "AI & Machine Learning Summit 2025",
+  "host": "Tech Innovators Inc.",
+  "details": "In-depth AI event",
+  "price": "₹999",
+  "speakers": [
+    {
+      "name": "Dr. Ayesha Kumar",
+      "position": "AI Scientist"
+    }
+  ]
+}
+```
+
+---
+
+### 📌 Update Meetup
+
+```
+POST /meetups/:meetupId
+```
+
+---
+
+### 📌 Update Meetup Details
+
+```
+POST /meetups/details/:title
 ```
 
 ---
@@ -70,56 +217,13 @@ http://localhost:5173
 
 ```
 frontendMeetups/
-│── public/        # Static files
-│── src/           # Main source code
-│── index.html     # Entry HTML file
-│── package.json   # Project config
-│── vite.config.js # Vite configuration
+│── public/
+│── src/
+│── components/
+│── pages/
+│── services/
+│── App.jsx
 ```
-
----
-
-## 🛠️ Tech Stack
-
-### Frontend
-
-* React JS
-* Vite
-
-### Tools
-
-* ESLint
-* npm
-
----
-
-## ✨ Features
-
-* 📄 Displays meetup events in a structured layout  
-* 🧾 Individual meetup cards with details  
-* 🔄 Dynamic rendering using React components  
-* 📱 Responsive design for different screen sizes  
-* 🎨 Clean and simple UI for better readability  
-
----
-
-## 📚 Learning Goals
-
-This project helps in:
-
-* Understanding React basics  
-* Learning component structure  
-* Working with modern frontend tools like Vite  
-* Building and structuring UI projects  
-
----
-
-## 🔗 Future Improvements
-
-* Add routing (React Router)  
-* Integrate backend APIs  
-* Add user interaction features (like forms)  
-* Enhance UI with animations  
 
 ---
 
