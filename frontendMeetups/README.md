@@ -7,13 +7,13 @@
 
 ---
 
-A **modern frontend project** built using React and Vite to explore UI development, component structure, and fast development workflows.
+A **modern frontend project** built using React and Vite to explore UI development and component-based design.
 
 ---
 
 ## 🌐 Live Demo
 
-🔗 (Add your deployed link here if available)
+🔗 https://frontend-meetups.vercel.app/
 
 ---
 
@@ -95,11 +95,11 @@ frontendMeetups/
 
 ## ✨ Features
 
-* ⚡ Fast development with Vite
-* 🔥 Hot Module Replacement (HMR)
-* 📦 Clean project structure
-* 🧩 Component-based architecture
-* 🧹 Linting with ESLint
+* 📄 Displays meetup events in a structured layout  
+* 🧾 Individual meetup cards with details  
+* 🔄 Dynamic rendering using React components  
+* 📱 Responsive design for different screen sizes  
+* 🎨 Clean and simple UI for better readability  
 
 ---
 
@@ -107,19 +107,19 @@ frontendMeetups/
 
 This project helps in:
 
-* Understanding React basics
-* Learning component structure
-* Working with modern frontend tools like Vite
-* Setting up projects from scratch
+* Understanding React basics  
+* Learning component structure  
+* Working with modern frontend tools like Vite  
+* Building and structuring UI projects  
 
 ---
 
 ## 🔗 Future Improvements
 
-* Add routing (React Router)
-* Add API integration
-* Build real UI components
-* Deploy project online
+* Add routing (React Router)  
+* Integrate backend APIs  
+* Add user interaction features (like forms)  
+* Enhance UI with animations  
 
 ---
 
