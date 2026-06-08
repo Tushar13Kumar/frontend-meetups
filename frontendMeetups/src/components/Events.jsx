@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 const Events = () => {
   const { data, loading, error } = useFetch(
-    `https://backend-meetup-mon7.vercel.app/meetups`
-  );
+  `https://backend-meetup-theta.vercel.app/meetups`
+);
 
   // State for filters
   const [searchQuery, setSearchQuery] = useState("");
@@ -15,14 +15,14 @@ const Events = () => {
   if (error) return <p className="text-center text-danger">Error: {error}</p>;
 
   // Apply filters and search
-  const filteredEvents = data?.filter((event) => {
-    const typeMatch = filterType === "Both" || event.eventType === filterType;
-    const query = searchQuery.toLowerCase();
-    const searchMatch =
-      event.title.toLowerCase().includes(query) ||
-      event.tags?.some((tag) => tag.toLowerCase().includes(query));
-    return typeMatch && searchMatch;
-  });
+  const filteredEvents = Array.isArray(data) ? data.filter((event) => {
+  const typeMatch = filterType === "Both" || event.eventType === filterType;
+  const query = searchQuery.toLowerCase();
+  const searchMatch =
+    event.title.toLowerCase().includes(query) ||
+    event.tags?.some((tag) => tag.toLowerCase().includes(query));
+  return typeMatch && searchMatch;
+}) : [];
 
   return (
     <div className="container-fluid my-4 px-4">
